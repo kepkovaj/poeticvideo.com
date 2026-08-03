@@ -1,0 +1,711 @@
+﻿<gallery
+base = ""
+background = "#FFFFFF"
+banner = "#F0F0F0"
+text = "#0E0752"
+link = "#0000FF"
+alink = "#FF0000"
+vlink = "#800080"
+date = "">
+	<sitename>Poetic Video presents</sitename>
+	<photographer>Stanislav Stanek, Academy-Trained Czech Painter</photographer>
+	<contactinfo>Contact: Ivan Stanek, StudioIvan@msn.com, 603-997-6119  </contactinfo>
+	<email>poeticvideo@earthlink.net</email>
+	<security><![CDATA[Poetic Video]]> </security>
+
+<banner font = "Arial" fontsize = "3" color =  "#F0F0F0"> </banner>
+<thumbnail base ="thumbnails/" font = "Arial" fontsize = "4" color = "#F0F0F0" border = "2" rows = "3" col = "5"> </thumbnail> 
+<large base ="images/" font = "Arial" fontsize = "3" color = "#F0F0F0" border = "3"> </large>
+<images id = "images">
+
+<image
+path = "01_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "01_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FALL FLOWERS]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle – size: 45 cm x 56 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "02_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "02_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[DON QUIXOTE – ON THE WAY]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 110 cm x 153 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "03_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "03_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WINTER COTTAGE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 85 cm x 90 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "04_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "04_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[DAISIES]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "05_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "05_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WILD FLOWERS ON THE TABLE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "06_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "06_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[TUG BOATS [Portsmouth, NH, USA]]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 150 cm x 75 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "07_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "07_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[DON QUIXOTE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 75 cm x 50 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "08_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "08_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[DON QUIXOTE AND SANCHO]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle – size: 35 cm x 50 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "09_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "09_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[DON QUIXOTE – SLOW SANCHO]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 35 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "10_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "10_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[DON QUIXOTE – CONVALESCENCE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "11_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "11_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[CHAIR WITH FLOWERS]]></meta>
+	<meta name = "description"><![CDATA[original chalk – size: 40 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "12_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "12_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[SLEDDING]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 60 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "13_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "13_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[SEVEN ROSES]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "14_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "14_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[LOCKED GARDEN]]></meta>
+	<meta name = "description"><![CDATA[original combination of aquarelle and pastel – size: 40 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "15_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "15_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[LOCKED GARDEN]]></meta>
+	<meta name = "description"><![CDATA[original combination of aquarelle and pastel – size: 40 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "16_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "16_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[LOCKED GARDEN]]></meta>
+	<meta name = "description"><![CDATA[original combination of aquarelle and pastel – size: 40 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "17_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "17_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[CARRIAGE DRIVER]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 35 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "18_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "18_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[NORMANDY]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 95 cm x 70 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "19_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "19_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FLOWERS AND FRUIT]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 60 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "20_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "20_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[CHURCH]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 30 cm x 40 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "21_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "21_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[JESUS CHRIST [Wayside cross in Nepomuk, Czech Republic]]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 35 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "22_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "22_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF SON JAN]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 30 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "23_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "23_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[DON QUIXOTE – TO NEW ADVENTURE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 90 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "24_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "24_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[GRANDSON MICHAL]]></meta>
+	<meta name = "description"><![CDATA[original chalk – size: 45 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "25_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "25_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF SON JAN]]></meta>
+	<meta name = "description"><![CDATA[original chalk – size: 40 cm x 60 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "26_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "26_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[MOTHER AND HER LIFE]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle on wood – size: 35 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "27_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "27_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FLOWERS AT COUNTRY COTTAGE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 40 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "28_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "28_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[MOTHER AND HER LIFE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 75 cm x 105 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "29_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "29_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FLOWERS IN A GLASS]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 60 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "30_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "30_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF ARTIST PISTORIUS]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 110 cm x 160 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "31_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "31_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF SON IVAN]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 105 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "32_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "32_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[VASE OF FLOWERS]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 75 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "33_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "33_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FLOWERS FOR HANA]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "34_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "34_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[STATUE OF JESUS [Wayside cross in Plzen county, Czech Republic]]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle – size: 75 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "35_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "35_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WILD FLOWERS IN A VASE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 45 cm x 60 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "36_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "36_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WILD FLOWERS IN A VASE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 65 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "37_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "37_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FLOWERS WITH NEIGHBOR’S COTTAGE]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 50 cm x 70 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "38_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "38_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WILD FLOWERS IN A GLASS]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 25 cm x 35 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "39_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "39_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[WILD FLOWERS WITH DAISIES]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 35 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "40_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "40_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[MADONNA OF PLZEN]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 55 cm x 70 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "41_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "41_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[FRIEND’S DOG - AXIK]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 25 cm x 40 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "42_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "42_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF SONS IVAN AND STANISLAV]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 95 cm x 140 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "43_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "43_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF SON JAN]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 35 cm x 55 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "44_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "44_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF ARCHITECT SUDA]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 65 cm x 85 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "45_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "45_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[CEMETARY IN VILLAGE UTERY ]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 65 cm x 70 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "46_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "46_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[GIRL AT HALLOWEEN]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle – size: 35 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "47_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "47_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[PORTRAIT OF VERONIKA]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 95 cm x 140 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "48_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "48_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[SELF PORTRAIT]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 35 cm x 45 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "49_catalog.jpg"
+width = "402"
+height = "500"
+thumbpath = "49_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[CHARLIE CHAPLIN]]></meta>
+	<meta name = "description"><![CDATA[original aquarelle on wood – size: 189 cm x 230 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "50_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "50_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[MERMAID]]></meta>
+	<meta name = "description"><![CDATA[original air brush - size: 210 cm x 95 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "51_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "51_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[LILY OF THE VALLEY]]></meta>
+	<meta name = "description"><![CDATA[original pastel – size: 25 cm x 40 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "52_catalog.jpg"
+width = "500"
+height = "400"
+thumbpath = "52_catalog.jpg"
+thumbwidth = "75"
+thumbheight = "60">
+	<meta name = "title"><![CDATA[PORTSMOUTH RIVER]]></meta>
+	<meta name = "description"><![CDATA[original oil on canvas – size: 95 cm x 60 cm]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+
+<image
+path = "53_catalog.jpg"
+width = "400"
+height = "500"
+thumbpath = "53_catalog.jpg"
+thumbwidth = "60"
+thumbheight = "75">
+	<meta name = "title"><![CDATA[OCTOBER FLOWERS ]]></meta>
+	<meta name = "description"><![CDATA[original combination technique – size: 45 cm x 65 cm
+]]></meta>
+	<meta name = "copyright"><![CDATA[Stanislav Stanek]]></meta>
+</image>
+
+</images>
+</gallery>

@@ -1,0 +1,874 @@
+<HTML>
+<HEAD>
+	<TITLE>Poetic Video</TITLE>
+	<META name="generator" content="Adobe Photoshop(R) CS Web Photo Gallery">
+	<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link href="images/galleryStyle.css" rel="stylesheet" type="text/css">
+	<script language="javascript">
+	<!--
+	/******************** BROWSER DETECT  ********************************************/
+	/** List of all known user agent names */
+	var agentNames = new Array("msie ", "netscape6/", "netscape/", "mozilla/", "opera/");
+	
+	var isIE = (navigator.appName.indexOf("Explorer") > -1);
+	var isMac = (navigator.userAgent.indexOf("Mac") > -1);
+	var majorVersion = getMajorVersion();
+	var isIE5Mac = (isIE && majorVersion >= 5 && isMac);
+	
+	
+	function getMajorVersion() {
+	
+		var majorVersion = 0;
+		var verStart = 0;
+		var agent = navigator.userAgent;
+	
+		if (agent != null) {
+	
+	    		agent = agent.toLowerCase();
+	
+			for (var i = 0; i < agentNames.length; i++) {
+	
+				var name = agentNames[i];
+				var pos = agent.indexOf(name);
+	
+				if (pos > -1) {
+	
+					verStart = pos + name.length;
+					break;
+				}
+			}
+	
+			var verStop = agent.indexOf('.', verStart);
+	
+			if (verStart != -1 && verStop > verStart && (verStop - verStart) <= 2) {
+	
+				return parseInt(agent.substring(verStart, verStop));
+	
+			}
+		}
+	
+		return majorVersion;
+	}
+	
+	/******************** End BROWSER DETECT  ********************************************/
+	
+	//Keyed by image name. Value is the index position of image in the indexed array.
+	var myImages = new Object();
+	var myImagesIndexed = new Array();
+	//store images in.
+	var preloadObj = new Object();
+	//Int for position in myImagesIndexed array.
+	var currentImage = 0;
+	
+	//Set when bottom frame is loaded.
+	var isBottomFrameLoaded = false;
+	
+	function setTopFrameImage(imgName, imgPath) {
+		var theImage = top.TopFrame.document.images[imgName];
+		theImage.src = imgPath;
+		
+		//Mac IE 5.2 OSX does not want to update the image, set it to itself to get it to draw.
+		if (isIE5Mac) {
+			theImage.src = theImage.src;
+		}
+	}
+	
+	function setImage(imgName, imgPath) {
+		var theImage = top.document.images[imgName];
+		theImage.src = imgPath;
+	}
+	
+	function previousImage() {
+		if (currentImage >= 1) {
+			setTopFrameImage("theImage", ("../images/" + myImagesIndexed[--currentImage][0]));
+			setArrows();
+			updateMetaData();
+			if (autoAdvance) {
+				resetAutoAdvance();
+			}
+		}
+	}
+	
+	function autoNextImage() {
+		if (currentImage != (myImagesIndexed.length - 1) && myImagesIndexed.length > 1) {
+			//check to make sure image is ready to display
+			if ((top.TopFrame && top.TopFrame.isTopFrameLoaded) && preloadObj[myImagesIndexed[(currentImage+1)][0]]) {
+				setTopFrameImage("theImage", ("../images/" + myImagesIndexed[++currentImage][0]));
+				setArrows();
+				updateMetaData();
+			} else {
+				//Try again to see if image is loaded
+				setTimeout("autoNextImage()", 100);
+			}
+		//Set to -1 so auto advance can loop.
+		} else if (autoAdvance) {
+			currentImage = -1;
+			autoNextImage();
+		}
+	}
+	
+	function nextImage() {
+		if (currentImage != (myImagesIndexed.length - 1) && myImagesIndexed.length > 1) {
+			autoNextImage();
+			if (autoAdvance) {
+				resetAutoAdvance();
+			}
+		}
+	}
+	
+	var autoAdvance = false;
+	var intervalTimer = null;
+	
+	function startAutoAdvance() {
+		//1000 = 1 sec, 5000 = 5 secs, adjust as desired
+		var delay = 5000;
+		
+		//if (allImagesLoaded) {
+			intervalTimer = setInterval("autoNextImage()", delay);
+			autoAdvance = true;
+			setPausePlayImage();
+		//}
+	}
+	
+	function stopAutoAdvance() {
+		clearInterval(intervalTimer);
+		autoAdvance = false;
+		setPausePlayImage();
+	}
+	
+	function resetAutoAdvance() {
+		stopAutoAdvance();
+		startAutoAdvance();
+	}
+	
+	function setPausePlayImage() {
+		var theImg = null;
+		
+		if (top.isMainPageLoaded) {
+			if (preloadObj["pause"] && preloadObj["pause_over"] && preloadObj["play"] && preloadObj["play_over"]) {
+				if (autoAdvance) {
+					theImg = (overPlayPauseButton) ? "images/pause_over.gif" : "images/pause.gif";
+				} else {
+					theImg = (overPlayPauseButton) ? "images/play_over.gif" : "images/play.gif";
+				}
+				
+				setImage("pausePlay1", theImg);
+				setImage("pausePlay2", theImg);		
+			}
+		} else {
+			setTimeout("setPausePlayImage()", 10);
+		}	
+	}
+	
+	var allImagesLoaded = false;
+	function preloadMyImages() {
+		
+		if (document.images) {
+			preloadObj["pause_over"] = newImage("../images/pause_over.gif");
+			preloadObj["pause"] = newImage("../images/pause.gif");
+			preloadObj["play_over"] = newImage("../images/play_over.gif");
+			preloadObj["play"] = newImage("../images/play.gif");
+			
+			preloadObj["previous_disabled"] = newImage("../images/previous_disabled.gif");
+			preloadObj["previous"] = newImage("../images/previous.gif");
+			preloadObj["next_disabled"] = newImage("../images/next_disabled.gif");
+			preloadObj["next"] = newImage("../images/next.gif");
+		
+			for (var i=0; i < myImagesIndexed.length; i++) {
+				preloadObj[myImagesIndexed[i][0]] = newImage("../images/" + myImagesIndexed[i][0]);
+				//alert(myImagesIndexed[i][0] + "  " + preloadObj[myImagesIndexed[i][0]]);
+			}
+		}
+		
+		allImagesLoaded = true;
+	}
+	
+	function newImage(arg) {
+		if (document.images) {
+			rslt = new Image();
+			rslt.src = arg;
+			return rslt;
+		}
+	}
+	
+	function togglePlayPauseState() {
+		if (allImagesLoaded) {
+			if(autoAdvance) {
+				stopAutoAdvance();
+			} else {
+				startAutoAdvance();
+			}
+		}
+	}
+	
+	var overPlayPauseButton = false;
+	function togglePlayPauseImg(state) {
+		if (allImagesLoaded) {
+			overPlayPauseButton = (state.toLowerCase() == "over") ? true : false;
+			setPausePlayImage();
+		}
+	}
+	
+	function jumpToImage(imgName) {
+		if (top.TopFrame && top.TopFrame.isTopFrameLoaded) {
+			var index = myImages[imgName];
+			
+			setTopFrameImage("theImage", ("../images/" + myImagesIndexed[index][0]));
+
+			//reset timer to ensure full delay is used for the image
+			if (autoAdvance) {
+				resetAutoAdvance();
+			}
+		
+			currentImage = index;
+			setArrows();
+			updateMetaData();	
+		} else {
+			setTimeout("jumpToImage(imgName)" , 10);
+		}	
+	}
+	
+	/*
+		//Key to data structure
+		myImagesIndexed[currentImage][0] = FILENAMEURL
+		myImagesIndexed[currentImage][1] = CAPTIONTITLE
+		myImagesIndexed[currentImage][2] = FILEINFO
+		myImagesIndexed[currentImage][3] = CREDITS
+		myImagesIndexed[currentImage][4] = COPYRIGHT
+		myImagesIndexed[currentImage][5] = FILENAME
+	*/
+	function updateMetaData() {
+		if (top.TopFrame && top.TopFrame.isTopFrameLoaded) {
+			
+			top.TopFrame.document.getElementById("captionTitle").innerHTML = myImagesIndexed[currentImage][1];
+			top.TopFrame.document.getElementById("fileInfo").innerHTML = myImagesIndexed[currentImage][2];
+			top.TopFrame.document.getElementById("credits").innerHTML = myImagesIndexed[currentImage][3];
+			top.TopFrame.document.getElementById("copyright").innerHTML = myImagesIndexed[currentImage][4];
+			top.TopFrame.document.getElementById("fileName").innerHTML = myImagesIndexed[currentImage][5];
+			
+		} else {
+			setTimeout("updateMetaData()", 10);
+		}
+	}
+	
+	function setArrows() {
+		var prevImg = null;
+		var nextImg = null;
+		
+		if (top.isMainPageLoaded && preloadObj["previous"] && preloadObj["previous_disabled"] && preloadObj["next"] && preloadObj["next_disabled"]) {
+			prevImg = (currentImage > 0) ? "images/previous.gif" : "images/previous_disabled.gif";
+			nextImg = (currentImage < (myImagesIndexed.length-1)) ? "images/next.gif" : "images/next_disabled.gif";
+			
+			setImage("previous1", prevImg);	
+			setImage("previous2", prevImg);	
+			setImage("next1", nextImg);	
+			setImage("next2", nextImg);
+		} else {
+			setTimeout("setArrows()", 10);
+		}
+	}
+	
+	function replaceCharacter(str, oldCharacter, newCharacter) {
+		if(str != -1) {
+			var strArray = str.split(oldCharacter);
+			str = strArray.join(newCharacter);
+			//alert(str);
+		}
+		return str;
+	}
+
+	//-->
+	</script>
+</HEAD>
+<body leftmargin="0" marginheight="0" marginwidth="0" topmargin="0" bgcolor="#CCCCCC" onload="isBottomFrameLoaded = true; startAutoAdvance(); preloadMyImages();">
+	<div id="thumbnail" align="center">
+		<table height="82" border="0" cellpadding="4" cellspacing="0">
+			<tr align="center">				
+<!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='01_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('01_catalog.jpg', '%20', ''));"><img src="thumbnails/01_catalog.jpg" width="60" height="75" border=2 alt="01_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('01_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("01_catalog.jpg", "FALL FLOWERS<br>", "original aquarelle &#150; size: 45 cm x 56 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "01");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='02_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('02_catalog.jpg', '%20', ''));"><img src="thumbnails/02_catalog.jpg" width="60" height="75" border=2 alt="02_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('02_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("02_catalog.jpg", "DON QUIXOTE &#150; ON THE WAY<br>", "original oil on canvas &#150; size: 110 cm x 153 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "02");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='03_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('03_catalog.jpg', '%20', ''));"><img src="thumbnails/03_catalog.jpg" width="60" height="75" border=2 alt="03_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('03_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("03_catalog.jpg", "WINTER COTTAGE<br>", "original oil on canvas &#150; size: 85 cm x 90 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "03");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='04_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('04_catalog.jpg', '%20', ''));"><img src="thumbnails/04_catalog.jpg" width="60" height="75" border=2 alt="04_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('04_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("04_catalog.jpg", "DAISIES<br>", "original oil on canvas &#150; size: 45 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "04");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='05_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('05_catalog.jpg', '%20', ''));"><img src="thumbnails/05_catalog.jpg" width="60" height="75" border=2 alt="05_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('05_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("05_catalog.jpg", "WILD FLOWERS ON THE TABLE<br>", "original oil on canvas &#150; size: 45 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "05");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='06_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('06_catalog.jpg', '%20', ''));"><img src="thumbnails/06_catalog.jpg" width="75" height="60" border=2 alt="06_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('06_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("06_catalog.jpg", "TUG BOATS [Portsmouth, NH, USA]<br>", "original oil on canvas &#150; size: 150 cm x 75 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "06");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='07_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('07_catalog.jpg', '%20', ''));"><img src="thumbnails/07_catalog.jpg" width="75" height="60" border=2 alt="07_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('07_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("07_catalog.jpg", "DON QUIXOTE<br>", "original oil on canvas &#150; size: 75 cm x 50 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "07");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='08_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('08_catalog.jpg', '%20', ''));"><img src="thumbnails/08_catalog.jpg" width="60" height="75" border=2 alt="08_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('08_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("08_catalog.jpg", "DON QUIXOTE AND SANCHO<br>", "original aquarelle &#150; size: 35 cm x 50 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "08");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='09_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('09_catalog.jpg', '%20', ''));"><img src="thumbnails/09_catalog.jpg" width="75" height="60" border=2 alt="09_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('09_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("09_catalog.jpg", "DON QUIXOTE &#150; SLOW SANCHO<br>", "original oil on canvas &#150; size: 55 cm x 35 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "09");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='10_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('10_catalog.jpg', '%20', ''));"><img src="thumbnails/10_catalog.jpg" width="60" height="75" border=2 alt="10_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('10_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("10_catalog.jpg", "DON QUIXOTE &#150; CONVALESCENCE<br>", "original oil on canvas &#150; size: 55 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "10");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='11_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('11_catalog.jpg', '%20', ''));"><img src="thumbnails/11_catalog.jpg" width="60" height="75" border=2 alt="11_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('11_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("11_catalog.jpg", "CHAIR WITH FLOWERS<br>", "original chalk &#150; size: 40 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "11");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='12_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('12_catalog.jpg', '%20', ''));"><img src="thumbnails/12_catalog.jpg" width="75" height="60" border=2 alt="12_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('12_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("12_catalog.jpg", "SLEDDING<br>", "original oil on canvas &#150; size: 60 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "12");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='13_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('13_catalog.jpg', '%20', ''));"><img src="thumbnails/13_catalog.jpg" width="60" height="75" border=2 alt="13_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('13_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("13_catalog.jpg", "SEVEN ROSES<br>", "original oil on canvas &#150; size: 45 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "13");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='14_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('14_catalog.jpg', '%20', ''));"><img src="thumbnails/14_catalog.jpg" width="60" height="75" border=2 alt="14_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('14_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("14_catalog.jpg", "LOCKED GARDEN<br>", "original combination of aquarelle and pastel &#150; size: 40 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "14");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='15_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('15_catalog.jpg', '%20', ''));"><img src="thumbnails/15_catalog.jpg" width="60" height="75" border=2 alt="15_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('15_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("15_catalog.jpg", "LOCKED GARDEN<br>", "original combination of aquarelle and pastel &#150; size: 40 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "15");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='16_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('16_catalog.jpg', '%20', ''));"><img src="thumbnails/16_catalog.jpg" width="60" height="75" border=2 alt="16_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('16_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("16_catalog.jpg", "LOCKED GARDEN<br>", "original combination of aquarelle and pastel &#150; size: 40 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "16");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='17_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('17_catalog.jpg', '%20', ''));"><img src="thumbnails/17_catalog.jpg" width="75" height="60" border=2 alt="17_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('17_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("17_catalog.jpg", "CARRIAGE DRIVER<br>", "original oil on canvas &#150; size: 55 cm x 35 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "17");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='18_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('18_catalog.jpg', '%20', ''));"><img src="thumbnails/18_catalog.jpg" width="75" height="60" border=2 alt="18_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('18_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("18_catalog.jpg", "NORMANDY<br>", "original oil on canvas &#150; size: 95 cm x 70 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "18");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='19_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('19_catalog.jpg', '%20', ''));"><img src="thumbnails/19_catalog.jpg" width="60" height="75" border=2 alt="19_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('19_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("19_catalog.jpg", "FLOWERS AND FRUIT<br>", "original oil on canvas &#150; size: 45 cm x 60 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "19");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='20_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('20_catalog.jpg', '%20', ''));"><img src="thumbnails/20_catalog.jpg" width="60" height="75" border=2 alt="20_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('20_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("20_catalog.jpg", "CHURCH<br>", "original oil on canvas &#150; size: 30 cm x 40 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "20");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='21_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('21_catalog.jpg', '%20', ''));"><img src="thumbnails/21_catalog.jpg" width="60" height="75" border=2 alt="21_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('21_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("21_catalog.jpg", "JESUS CHRIST [Wayside cross in Nepomuk, Czech Republic]<br>", "original oil on canvas &#150; size: 35 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "21");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='22_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('22_catalog.jpg', '%20', ''));"><img src="thumbnails/22_catalog.jpg" width="60" height="75" border=2 alt="22_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('22_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("22_catalog.jpg", "PORTRAIT OF SON JAN<br>", "original oil on canvas &#150; size: 30 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "22");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='23_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('23_catalog.jpg', '%20', ''));"><img src="thumbnails/23_catalog.jpg" width="60" height="75" border=2 alt="23_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('23_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("23_catalog.jpg", "DON QUIXOTE &#150; TO NEW ADVENTURE<br>", "original oil on canvas &#150; size: 45 cm x 90 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "23");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='24_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('24_catalog.jpg', '%20', ''));"><img src="thumbnails/24_catalog.jpg" width="60" height="75" border=2 alt="24_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('24_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("24_catalog.jpg", "GRANDSON MICHAL<br>", "original chalk &#150; size: 45 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "24");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='25_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('25_catalog.jpg', '%20', ''));"><img src="thumbnails/25_catalog.jpg" width="60" height="75" border=2 alt="25_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('25_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("25_catalog.jpg", "PORTRAIT OF SON JAN<br>", "original chalk &#150; size: 40 cm x 60 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "25");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='26_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('26_catalog.jpg', '%20', ''));"><img src="thumbnails/26_catalog.jpg" width="60" height="75" border=2 alt="26_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('26_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("26_catalog.jpg", "MOTHER AND HER LIFE<br>", "original aquarelle on wood &#150; size: 35 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "26");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='27_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('27_catalog.jpg', '%20', ''));"><img src="thumbnails/27_catalog.jpg" width="60" height="75" border=2 alt="27_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('27_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("27_catalog.jpg", "FLOWERS AT COUNTRY COTTAGE<br>", "original oil on canvas &#150; size: 40 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "27");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='28_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('28_catalog.jpg', '%20', ''));"><img src="thumbnails/28_catalog.jpg" width="60" height="75" border=2 alt="28_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('28_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("28_catalog.jpg", "MOTHER AND HER LIFE<br>", "original oil on canvas &#150; size: 75 cm x 105 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "28");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='29_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('29_catalog.jpg', '%20', ''));"><img src="thumbnails/29_catalog.jpg" width="60" height="75" border=2 alt="29_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('29_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("29_catalog.jpg", "FLOWERS IN A GLASS<br>", "original oil on canvas &#150; size: 45 cm x 60 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "29");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='30_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('30_catalog.jpg', '%20', ''));"><img src="thumbnails/30_catalog.jpg" width="60" height="75" border=2 alt="30_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('30_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("30_catalog.jpg", "PORTRAIT OF ARTIST PISTORIUS<br>", "original oil on canvas &#150; size: 110 cm x 160 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "30");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='31_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('31_catalog.jpg', '%20', ''));"><img src="thumbnails/31_catalog.jpg" width="60" height="75" border=2 alt="31_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('31_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("31_catalog.jpg", "PORTRAIT OF SON IVAN<br>", "original oil on canvas &#150; size: 55 cm x 105 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "31");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='32_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('32_catalog.jpg', '%20', ''));"><img src="thumbnails/32_catalog.jpg" width="60" height="75" border=2 alt="32_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('32_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("32_catalog.jpg", "VASE OF FLOWERS<br>", "original oil on canvas &#150; size: 55 cm x 75 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "32");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='33_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('33_catalog.jpg', '%20', ''));"><img src="thumbnails/33_catalog.jpg" width="60" height="75" border=2 alt="33_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('33_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("33_catalog.jpg", "FLOWERS FOR HANA<br>", "original oil on canvas &#150; size: 45 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "33");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='34_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('34_catalog.jpg', '%20', ''));"><img src="thumbnails/34_catalog.jpg" width="75" height="60" border=2 alt="34_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('34_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("34_catalog.jpg", "STATUE OF JESUS [Wayside cross in Plzen county, Czech Republic]<br>", "original aquarelle &#150; size: 75 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "34");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='35_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('35_catalog.jpg', '%20', ''));"><img src="thumbnails/35_catalog.jpg" width="60" height="75" border=2 alt="35_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('35_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("35_catalog.jpg", "WILD FLOWERS IN A VASE<br>", "original oil on canvas &#150; size: 45 cm x 60 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "35");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='36_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('36_catalog.jpg', '%20', ''));"><img src="thumbnails/36_catalog.jpg" width="60" height="75" border=2 alt="36_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('36_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("36_catalog.jpg", "WILD FLOWERS IN A VASE<br>", "original oil on canvas &#150; size: 55 cm x 65 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "36");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='37_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('37_catalog.jpg', '%20', ''));"><img src="thumbnails/37_catalog.jpg" width="60" height="75" border=2 alt="37_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('37_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("37_catalog.jpg", "FLOWERS WITH NEIGHBOR&#146;S COTTAGE<br>", "original oil on canvas &#150; size: 50 cm x 70 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "37");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='38_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('38_catalog.jpg', '%20', ''));"><img src="thumbnails/38_catalog.jpg" width="60" height="75" border=2 alt="38_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('38_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("38_catalog.jpg", "WILD FLOWERS IN A GLASS<br>", "original oil on canvas &#150; size: 25 cm x 35 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "38");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='39_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('39_catalog.jpg', '%20', ''));"><img src="thumbnails/39_catalog.jpg" width="60" height="75" border=2 alt="39_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('39_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("39_catalog.jpg", "WILD FLOWERS WITH DAISIES<br>", "original oil on canvas &#150; size: 35 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "39");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='40_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('40_catalog.jpg', '%20', ''));"><img src="thumbnails/40_catalog.jpg" width="60" height="75" border=2 alt="40_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('40_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("40_catalog.jpg", "MADONNA OF PLZEN<br>", "original oil on canvas &#150; size: 55 cm x 70 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "40");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='41_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('41_catalog.jpg', '%20', ''));"><img src="thumbnails/41_catalog.jpg" width="60" height="75" border=2 alt="41_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('41_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("41_catalog.jpg", "FRIEND&#146;S DOG - AXIK<br>", "original oil on canvas &#150; size: 25 cm x 40 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "41");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='42_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('42_catalog.jpg', '%20', ''));"><img src="thumbnails/42_catalog.jpg" width="60" height="75" border=2 alt="42_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('42_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("42_catalog.jpg", "PORTRAIT OF SONS IVAN AND STANISLAV<br>", "original oil on canvas &#150; size: 95 cm x 140 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "42");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='43_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('43_catalog.jpg', '%20', ''));"><img src="thumbnails/43_catalog.jpg" width="60" height="75" border=2 alt="43_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('43_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("43_catalog.jpg", "PORTRAIT OF SON JAN<br>", "original oil on canvas &#150; size: 35 cm x 55 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "43");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='44_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('44_catalog.jpg', '%20', ''));"><img src="thumbnails/44_catalog.jpg" width="60" height="75" border=2 alt="44_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('44_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("44_catalog.jpg", "PORTRAIT OF ARCHITECT SUDA<br>", "original oil on canvas &#150; size: 65 cm x 85 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "44");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='45_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('45_catalog.jpg', '%20', ''));"><img src="thumbnails/45_catalog.jpg" width="60" height="75" border=2 alt="45_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('45_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("45_catalog.jpg", "CEMETARY IN VILLAGE UTERY <br>", "original oil on canvas &#150; size: 65 cm x 70 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "45");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='46_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('46_catalog.jpg', '%20', ''));"><img src="thumbnails/46_catalog.jpg" width="60" height="75" border=2 alt="46_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('46_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("46_catalog.jpg", "GIRL AT HALLOWEEN<br>", "original aquarelle &#150; size: 35 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "46");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='47_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('47_catalog.jpg', '%20', ''));"><img src="thumbnails/47_catalog.jpg" width="60" height="75" border=2 alt="47_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('47_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("47_catalog.jpg", "PORTRAIT OF VERONIKA<br>", "original oil on canvas &#150; size: 95 cm x 140 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "47");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='48_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('48_catalog.jpg', '%20', ''));"><img src="thumbnails/48_catalog.jpg" width="60" height="75" border=2 alt="48_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('48_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("48_catalog.jpg", "SELF PORTRAIT<br>", "original oil on canvas &#150; size: 35 cm x 45 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "48");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='49_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('49_catalog.jpg', '%20', ''));"><img src="thumbnails/49_catalog.jpg" width="60" height="75" border=2 alt="49_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('49_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("49_catalog.jpg", "CHARLIE CHAPLIN<br>", "original aquarelle on wood &#150; size: 189 cm x 230 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "49");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='50_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('50_catalog.jpg', '%20', ''));"><img src="thumbnails/50_catalog.jpg" width="75" height="60" border=2 alt="50_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('50_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("50_catalog.jpg", "MERMAID<br>", "original air brush - size: 210 cm x 95 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "50");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='51_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('51_catalog.jpg', '%20', ''));"><img src="thumbnails/51_catalog.jpg" width="60" height="75" border=2 alt="51_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('51_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("51_catalog.jpg", "LILY OF THE VALLEY<br>", "original pastel &#150; size: 25 cm x 40 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "51");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='52_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('52_catalog.jpg', '%20', ''));"><img src="thumbnails/52_catalog.jpg" width="75" height="60" border=2 alt="52_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('52_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("52_catalog.jpg", "PORTSMOUTH RIVER<br>", "original oil on canvas &#150; size: 95 cm x 60 cm<br>", "Stanislav Stanek", "Stanislav Stanek", "52");
+	
+</script><!-- Thumbnails with hyperlinks -->
+<td align="center">
+<a onmouseover="window.status='53_catalog.jpg<br>';  return true;"  onmouseout="window.status='';  return true;" href="javascript:jumpToImage(replaceCharacter('53_catalog.jpg', '%20', ''));"><img src="thumbnails/53_catalog.jpg" width="60" height="75" border=2 alt="53_catalog"></a>
+</td>
+<script language="javascript">
+	
+		var newIndex = myImagesIndexed.length;
+		myImages[replaceCharacter('53_catalog.jpg', '%20', '')] = newIndex;
+		
+		myImagesIndexed[newIndex] = new Array("53_catalog.jpg", "OCTOBER FLOWERS <br>", "original combination technique &#150; size: 45 cm x 65 cm <br>", "Stanislav Stanek", "Stanislav Stanek", "53");
+	
+</script>			</tr>
+		</table>
+	</div>
+</BODY>
+</HTML>

@@ -1,0 +1,14 @@
+
+<a title="click for description" href="pop-up-windows/rehearsal.html" onclick="return popup(this, 'Rehearsal')">
+<a title="click for description" href="pop-up-windows/preparation.html" onclick="return popup(this, 'Preparation')">
+<a title="click for description" href="pop-up-windows/ceremony.html" onclick="return popup(this, 'Ceremony')">
+<a title="click for description" href="pop-up-windows/perfect_ending.html" onclick="return popup(this, 'Recapitulation')">
+<a title="click for description" href="pop-up-windows/introduction.html" onclick="return popup(this, 'Introduction')">
+
+<a title="click for description" href="pop-up-windows/reception.html" onclick="return popup(this, 'Reception')">
+
+<a title="click for description" href="pop-up-windows/rehearsal_dinner.html" onclick="return popup(this, 'RehearsalDinner')">
+
+<A title="click for description" href="pop-up-windows/dvd_case.html" onclick="return popup(this, 'DVDCase')">
+<A title="click for description" href="pop-up-windows/photo_album.html" onclick="return popup(this, 'PhotoAlbum')">
+<A title="click for description" href="pop-up-windows/restore.html" onclick="return popup(this, 'PhotoAlbum')">
